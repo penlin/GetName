@@ -1,8 +1,25 @@
 <html>
 	<header>
 		<script>
+			function getRandInt(max) {
+				return Math.floor(Math.random() * max);
+			}
+
 			function onloaded() {
-				alert('Javascript is enabled');
+				const choices = [[3,2],[3,12],[9,6],[9,16],[13,2],[13,12]];
+				const max_num = 5;
+				let names = [];
+				for (let i =0; i < max_num; ++i) {
+					const option = getRandInt(choices.length - 1);
+					const num1 = choices[option][0];
+					const num2 = choices[option][1];
+					const char1_set = document.getElementById(`dict_${num1}`).innerHTML.replaceAll(' ', '');
+					const char2_set = document.getElementById(`dict_${num2}`).innerHTML.replaceAll(' ', '');
+					const char1 = char1_set[getRandInt(char1_set.length() - 1)];
+					const char2 = char2_set[getRandInt(char2_set.length() - 1)];
+					names.push(`林${char1}${char2}`);
+				}
+				alert(names.join("\n"));
 			}
 
 		</script>
@@ -33,25 +50,25 @@
 		<div>
 			<h3>Dictionary</h3>
 			<div>
-				<span class="key">2：</span><span>丁 十 二 八 七 乃 九 人 入 几 刀 力 又卜</span>
+				<span class="key">2：</span><span id="dict_2">丁 十 二 八 七 乃 九 人 入 几 刀 力 又卜</span>
 			</div>
 			<div>
-				<span class="key">3：</span><span> 大 小 三 寸 上 下 丸 久 凡 于 丈 也 勺 夕 千 士 山 才 子 口 川 工 干 弓 弋</span>
+				<span class="key">3：</span><span id="dict_3"> 大 小 三 寸 上 下 丸 久 凡 于 丈 也 勺 夕 千 士 山 才 子 口 川 工 干 弓 弋</span>
 			</div>
 			<div>
-				<span class="key">9 ：</span><span> 羿 風 飛 首 食 香 音 非 韋 面 重 都 郡 負 貞 紅 紀 段 律 待 彥 孩 封 帝 帥 奎 奐 奏 勇 勁 勉 亮 建 信 亭 侯 保 俠 俊 勃 南 弈 思 柳 泉 界 皇 盈 省 盃 相 秋 致 法 治 河 注 油 況 沿 泡 波 泣 泛 泳 沸 泌 泊 沾 沫 沼 沽 泯 泱 泓 泫 泮</span>
+				<span class="key">6：</span><span id="dict_6">字 存 安 守 宅 多 寺 尖 在 地 州 帆 年 式 早 旨 旬 旭 九日 有 汁 氾 汀 丞 亙 交 亦 仲 吉 光 兆 先 全 共 再 匡 匠 印 吏 同 向 名 合 回 圭 如 屹 成 曲 灰 竹 百 米 羽 而 臣 至 色 行 衣 西 聿</span>
 			</div>
 			<div>
-				<span class="key">6：</span></span>字 存 安 守 宅 多 寺 尖 在 地 州 帆 年 式 早 旨 旬 旭 九日 有 汁 氾 汀 丞 亙 交 亦 仲 吉 光 兆 先 全 共 再 匡 匠 印 吏 同 向 名 合 回 圭 如 屹 成 曲 灰 竹 百 米 羽 而 臣 至 色 行 衣 西 聿</span>
+				<span class="key">9 ：</span><span id="dict_9"> 羿 風 飛 首 食 香 音 非 韋 面 重 都 郡 負 貞 紅 紀 段 律 待 彥 孩 封 帝 帥 奎 奐 奏 勇 勁 勉 亮 建 信 亭 侯 保 俠 俊 勃 南 弈 思 柳 泉 界 皇 盈 省 盃 相 秋 致 法 治 河 注 油 況 沿 泡 波 泣 泛 泳 沸 泌 泊 沾 沫 沼 沽 泯 泱 泓 泫 泮</span>
 			</div>
 			<div>
-				<span class="key">12：</span><span> 清 涼 淡 淨 淪 深 淵 淳 淺 嵐 敦 斐 斑 斯 普 景 晰 晴 智 晾 暑 朝 期 棟 琦 登 發 皓 硯 稅 程 竣 翔 詠 賀 鈔 鈞 雄 雅 集 雲 順 須 飯 飲 黃 黑 然 晶 堯 富 尊 崴 復 傑 斌 無 貴 費 量 馭</span>
+				<span class="key">12：</span><span id="dict_12"> 清 涼 淡 淨 淪 深 淵 淳 淺 嵐 敦 斐 斑 斯 普 景 晰 晴 智 晾 暑 朝 期 棟 琦 登 發 皓 硯 稅 程 竣 翔 詠 賀 鈔 鈞 雄 雅 集 雲 順 須 飯 飲 黃 黑 然 晶 堯 富 尊 崴 復 傑 斌 無 貴 費 量 馭</span>
 			</div>
 			<div>
-				<span class="key">13：</span><span>新 暗 楚 楷 毓 睦 雷 電 雹 零 靖 鈺 頎 渙 渝 渦 渭 游 渴 湊 湖 湘 湛 湯 滋 湧 湲 照 揚 港 渡 減 煙 琛 傲 傳 圓 奧 微 意 愛 暉 暇 極 楓 榆 煌 煥 萬 筱 梁 義 聖 詩 頌</span>
+				<span class="key">13：</span><span id="dict_13">新 暗 楚 楷 毓 睦 雷 電 雹 零 靖 鈺 頎 渙 渝 渦 渭 游 渴 湊 湖 湘 湛 湯 滋 湧 湲 照 揚 港 渡 減 煙 琛 傲 傳 圓 奧 微 意 愛 暉 暇 極 楓 榆 煌 煥 萬 筱 梁 義 聖 詩 頌</span>
 			</div>
 			<div>
-				<span class="key">16：</span><span> 潮 潛 潑 澄 澎 潯 潟 潾 澔 潤 學 操 曉 曇 樹 樺 橋 穌 穎 翰 羲 諾 謀 諺 豫 錄 錢 錫 錦 靛 靜 錐 雕 霍 霓 霖 頤 龍 默 穆 睿又 儒 冀 憲</span>
+				<span class="key">16：</span><span id="dict_16"> 潮 潛 潑 澄 澎 潯 潟 潾 澔 潤 學 操 曉 曇 樹 樺 橋 穌 穎 翰 羲 諾 謀 諺 豫 錄 錢 錫 錦 靛 靜 錐 雕 霍 霓 霖 頤 龍 默 穆 睿又 儒 冀 憲</span>
 			</div>
 		</div>
 		<div>
