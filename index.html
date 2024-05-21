@@ -15,9 +15,13 @@
 				return options[options.length - 1]
 			}
 
+			function numOfChars(num) {
+				return document.getElementById(`dist_${num}`).innerHTML.replaceAll(' ', '').length;
+			}
+
 			function onloaded() {
 				const choices = [[3,2],[3,12],[9,6],[9,16],[13,2],[13,12]];
-				let weights = choices.map(v => v[0]*v[1]);
+				let weights = choices.map(v => numOfChars(v[0])*numOfChars(v[1]));
 				const sum = weights.reduce((a, b) => a+b, 0);
 				weights[0] /= sum;
 				for (let i=1; i< choices.length; ++i) {
