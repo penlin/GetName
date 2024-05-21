@@ -15,8 +15,8 @@
 					const num2 = choices[option][1];
 					const char1_set = document.getElementById(`dict_${num1}`).innerHTML.replaceAll(' ', '');
 					const char2_set = document.getElementById(`dict_${num2}`).innerHTML.replaceAll(' ', '');
-					const char1 = char1_set[getRandInt(char1_set.length() - 1)];
-					const char2 = char2_set[getRandInt(char2_set.length() - 1)];
+					const char1 = char1_set[getRandInt(char1_set.length - 1)];
+					const char2 = char2_set[getRandInt(char2_set.length - 1)];
 					names.push(`林${char1}${char2}`);
 				}
 				alert(names.join("\n"));
