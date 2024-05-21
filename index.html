@@ -5,14 +5,30 @@
 				return Math.floor(Math.random() * max);
 			}
 
+			function randomSelect(options, weights) {
+				const rad = Math.random();
+				for (let i = 0; i < options.length; ++i) {
+					if (rad <= weights[i]) {
+						return options[i];
+					}
+				}
+				return options[options.length - 1]
+			}
+
 			function onloaded() {
 				const choices = [[3,2],[3,12],[9,6],[9,16],[13,2],[13,12]];
+				let weights = choices.map(v => v[0]*v[1]);
+				const sum = weights.reduce((a, b) => a+b, 0);
+				weights[0] /= sum;
+				for (let i=1; i< choices.length; ++i) {
+					weights[i] = weights[i - 1] + weights[i]/sum; 
+				}
 				const max_num = 5;
 				let names = [];
 				for (let i =0; i < max_num; ++i) {
-					const option = getRandInt(choices.length - 1);
-					const num1 = choices[option][0];
-					const num2 = choices[option][1];
+					const option = randomSelect(choices, weights);
+					const num1 = option[0];
+					const num2 = option[1];
 					const char1_set = document.getElementById(`dict_${num1}`).innerHTML.replaceAll(' ', '');
 					const char2_set = document.getElementById(`dict_${num2}`).innerHTML.replaceAll(' ', '');
 					const char1 = char1_set[getRandInt(char1_set.length - 1)];
