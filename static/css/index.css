@@ -19,3 +19,13 @@
     text-align: center;
     vertical-align: middle;
 }
+
+.dict span {
+    cursor: pointer;
+    font-weight: 300;
+}
+
+.dict span:hover {
+    font-weight: 500;
+    color: red;
+}

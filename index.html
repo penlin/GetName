@@ -38,7 +38,7 @@
       alert(names.join("\n"));
     }
 
-    function random_pop_name_has(num) {
+    function random_pop_name_has(num, fix_char=undefined) {
       let names = [];
       let posibles = [];
       for (const choice of choices) {
@@ -49,7 +49,9 @@
 
       for (let i = 0; i < 5; ++i) {
         const [num1, num2] = posibles[getRandInt(posibles.length)];
-        names.push(`林${random_name(num1, num2)}: 8, ${num1}, ${num2}`);
+        const char1 = (fix_char && num1 === num) ? fix_char : random_char(num1);
+        const char2 = (fix_char && num2 === num) ? fix_char : random_char(num2);
+        names.push(`林${char1}${char2}: 8, ${num1}, ${num2}`);
       }
       alert(names.join("\n"));
     }
@@ -72,8 +74,8 @@
       for (const key in dictionary) {
         const num = parseInt(key);
         const total = Object.keys(dictionary[key]).length;
-        content += `<div><button class="btn" onclick="random_pop_name_has(${num});">${key} (${total}):</button>`;
-        content += `<span>${Object.keys(dictionary[key]).join(' ')}</span>`;
+        content += `<div class="dict"><button class="btn" onclick="random_pop_name_has(${num});">${key} (${total}):</button>`;
+        content += `${Object.keys(dictionary[key]).map(ch => `<span onclick="random_pop_name_has(${num},'${ch}')">${ch}</span>`).join(' ')}`;
       }
       document.getElementById('dictionary').innerHTML = content;
 
@@ -107,7 +109,7 @@
   <div>
     <h3>Candidates</h3>
     <p>
-      <p>子硯 子清 凡清 彥存 奎安 羿諾 彥翰 奎澔 信安 湛然 俊潤 俊霖 子傑 照斌 夕嵐 川嵐 夕雲 頎斯 奐翰 省學 非零 楷硯 羿安 照涼 思睿 楷智 秋在 </p>
+      <p>子硯 子清 凡清 彥存 奎安 羿諾 彥翰 奎澔 信安 湛然 俊潤 俊霖 子傑 照斌 夕嵐 川嵐 夕雲 頎斯 奐翰 省學 非零 楷硯 羿安 照涼 思睿 楷智 秋在</p>
       <p>靖然 靖雲 靖淳 靖皓 靖淵 靖翔</p>
       <p>頌淵 頌雲 頌翔 頌斌 頌傑 </p>
       <p>睦淵 睦雲 睦期 </p>
@@ -115,8 +117,8 @@
   </div>
   <div>
     <h3>Reference</h3>
-    <a href="https://dict.mini.moe.edu.tw/SearchIndex/Stroke" target="_blank">教育部筆畫字典</a>
-    <a href="https://naming123.doitwell.tw" target="_blank">三財五行命理查詢</a>
+    <p><a href="https://dict.mini.moe.edu.tw/SearchIndex/Stroke" target="_blank">教育部筆畫字典</a></p>
+    <p><a href="https://naming123.doitwell.tw" target="_blank">三財五行命理查詢</a></p>
   </div>
 </body>
 
