@@ -1,105 +1,123 @@
+<!DOCTYPE HTML>
 <html>
-	<header>
-		<script>
-			function getRandInt(max) {
-				return Math.floor(Math.random() * max);
-			}
+<header>
+  <script type="text/javascript" src="static/js/index.js"></script>
+  <script type="text/javascript" src="static/js/dictionary.js"></script>
+  <link rel="stylesheet" href="static/css/index.css">
+  <script>
+    function getRandInt(max) {
+      return Math.floor(Math.random() * max);
+    }
 
-			function randomSelect(options, weights) {
-				const rad = Math.random();
-				for (let i = 0; i < options.length; ++i) {
-					if (rad <= weights[i]) {
-						return options[i];
-					}
-				}
-				return options[options.length - 1]
-			}
+    function randomSelect(options, weights) {
+      const rad = Math.random();
+      for (let i = 0; i < options.length; ++i) {
+        if (rad <= weights[i]) {
+          return options[i];
+        }
+      }
+      return options[options.length - 1]
+    }
 
-			function numOfChars(num) {
-				return document.getElementById(`dict_${num}`).innerHTML.replaceAll(' ', '').length;
-			}
+    function random_char(num) {
+      const index = getRandInt(Object.keys(dictionary[num]).length);
+      const char = Object.keys(dictionary[num])[index];
+      return char;
+    }
 
-			function onloaded() {
-				const choices = [[3,2],[3,12],[9,6],[9,16],[13,2],[13,12]];
-				let weights = choices.map(v => numOfChars(v[0])*numOfChars(v[1]));
-				const sum = weights.reduce((a, b) => a+b, 0);
-				weights[0] /= sum;
-				for (let i=1; i< choices.length; ++i) {
-					weights[i] = weights[i - 1] + weights[i]/sum; 
-				}
-				const max_num = 5;
-				let names = [];
-				for (let i =0; i < max_num; ++i) {
-					const option = randomSelect(choices, weights);
-					const num1 = option[0];
-					const num2 = option[1];
-					const char1_set = document.getElementById(`dict_${num1}`).innerHTML.replaceAll(' ', '');
-					const char2_set = document.getElementById(`dict_${num2}`).innerHTML.replaceAll(' ', '');
-					const char1 = char1_set[getRandInt(char1_set.length - 1)];
-					const char2 = char2_set[getRandInt(char2_set.length - 1)];
-					names.push(`林${char1}${char2}`);
-				}
-				alert(names.join("\n"));
-			}
+    function random_name(num1, num2) {
+      return `${random_char(num1)}${random_char(num2)}`;
+    }
 
-		</script>
-		<title>Get the name</title>
-	</header>
-	<body onload="onloaded();">
-		<div>
-			<h3>Limitation</h3>
-			<div>
-				<span class="key">Good choice:</span> <span class="value">8, 3, 2</span>
-			</div>
-			<div>
-				<span class="key">Good choice:</span><span class="value"> 8, 3, 12</span>
-			</div>
-			<div>
-				<span class="key">Good choice:</span><span class="value"> 8, 9, 6</span>
-			</div>
-			<div>
-				<span class="key">Good choice:</span><span class="value"> 8, 9, 16</span>
-			</div>
-			<div>
-				<span class="key">Good choice:</span><span class="value"> 8, 13, 2</span>
-			</div>
-			<div>
-				<span class="key">Good choice:</span><span class="value"> 8, 13, 12</span>
-			</div>
-		</div>
-		<div>
-			<h3>Dictionary</h3>
-			<div>
-				<span class="key">2：</span><span id="dict_2">丁 十 二 八 七 乃 九 人 入 几 刀 力 又卜</span>
-			</div>
-			<div>
-				<span class="key">3：</span><span id="dict_3"> 大 小 三 寸 上 下 丸 久 凡 于 丈 也 勺 夕 千 士 山 才 子 口 川 工 干 弓 弋</span>
-			</div>
-			<div>
-				<span class="key">6：</span><span id="dict_6">字 存 安 守 宅 多 寺 尖 在 地 州 帆 年 式 早 旨 旬 旭 九日 有 汁 氾 汀 丞 亙 交 亦 仲 吉 光 兆 先 全 共 再 匡 匠 印 吏 同 向 名 合 回 圭 如 屹 成 曲 灰 竹 百 米 羽 而 臣 至 色 行 衣 西 聿</span>
-			</div>
-			<div>
-				<span class="key">9 ：</span><span id="dict_9"> 羿 風 飛 首 食 香 音 非 韋 面 重 都 郡 負 貞 紅 紀 段 律 待 彥 孩 封 帝 帥 奎 奐 奏 勇 勁 勉 亮 建 信 亭 侯 保 俠 俊 勃 南 弈 思 柳 泉 界 皇 盈 省 盃 相 秋 致 法 治 河 注 油 況 沿 泡 波 泣 泛 泳 沸 泌 泊 沾 沫 沼 沽 泯 泱 泓 泫 泮</span>
-			</div>
-			<div>
-				<span class="key">12：</span><span id="dict_12"> 清 涼 淡 淨 淪 深 淵 淳 淺 嵐 敦 斐 斑 斯 普 景 晰 晴 智 晾 暑 朝 期 棟 琦 登 發 皓 硯 稅 程 竣 翔 詠 賀 鈔 鈞 雄 雅 集 雲 順 須 飯 飲 黃 黑 然 晶 堯 富 尊 崴 復 傑 斌 無 貴 費 量 馭</span>
-			</div>
-			<div>
-				<span class="key">13：</span><span id="dict_13">新 暗 楚 楷 毓 睦 雷 電 雹 零 靖 鈺 頎 渙 渝 渦 渭 游 渴 湊 湖 湘 湛 湯 滋 湧 湲 照 揚 港 渡 減 煙 琛 傲 傳 圓 奧 微 意 愛 暉 暇 極 楓 榆 煌 煥 萬 筱 梁 義 聖 詩 頌</span>
-			</div>
-			<div>
-				<span class="key">16：</span><span id="dict_16"> 潮 潛 潑 澄 澎 潯 潟 潾 澔 潤 學 操 曉 曇 樹 樺 橋 穌 穎 翰 羲 諾 謀 諺 豫 錄 錢 錫 錦 靛 靜 錐 雕 霍 霓 霖 頤 龍 默 穆 睿又 儒 冀 憲</span>
-			</div>
-		</div>
-		<div>
-			<h3>Candidates</h3>
-			<p>
-			子硯 子清 凡清 彥存 奎安 羿諾 彥翰 奎澔 信安 靖然 湛然 俊潤 俊霖 子傑 照斌 夕嵐 川嵐 睦淵 靖淵 睦雲 靖翔 頌淵 頌雲 頌翔 頌斌 頌傑
-			</p>
-		</div>
-		<div>
-			<h3>Reference</h3>
-			<a href="https://naming123.doitwell.tw" target="_blank">https://naming123.doitwell.tw</a>
-		</div>
-	</body>
+    function pop_name(num1, num2, total=5) {
+      let names = [];
+      for (let i = 0; i < total; ++i) {
+        const name = random_name(num1, num2);
+        names.push(`林${name}: 8, ${num1}, ${num2}`);
+      }
+      alert(names.join("\n"));
+    }
+
+    function random_pop_name_has(num) {
+      let names = [];
+      let posibles = [];
+      for (const choice of choices) {
+        if (choice[0] === num || choice[1] === num) {
+          posibles.push(choice);
+        }
+      }
+
+      for (let i = 0; i < 5; ++i) {
+        const [num1, num2] = posibles[getRandInt(posibles.length)];
+        names.push(`林${random_name(num1, num2)}: 8, ${num1}, ${num2}`);
+      }
+      alert(names.join("\n"));
+    }
+
+    function onloaded() {
+      let content = '';
+      let weights = [];
+      let sum = 0;
+      for (const choice of choices) {
+        const [num1, num2] = choice;
+        const comb = Object.keys(dictionary[num1]).length * Object.keys(dictionary[num2]).length;
+        sum += comb;
+        weights.push(sum);
+        content += `<button class="btn" onclick="pop_name(${num1}, ${num2});">8, ${num1}, ${num2} (${comb})</button>`;
+      }
+      document.getElementById('choices-btn-group').innerHTML = content;
+      weights = weights.map(w => w/sum);
+
+      content = '';
+      for (const key in dictionary) {
+        const num = parseInt(key);
+        const total = Object.keys(dictionary[key]).length;
+        content += `<div><button class="btn" onclick="random_pop_name_has(${num});">${key} (${total}):</button>`;
+        content += `<span>${Object.keys(dictionary[key]).join(' ')}</span>`;
+      }
+      document.getElementById('dictionary').innerHTML = content;
+
+      const max_num = 5;
+      let names = [];
+      for (let i = 0; i < max_num; ++i) {
+        const option = randomSelect(choices, weights);
+        const num1 = option[0];
+        const num2 = option[1];
+        const name = random_name(num1, num2);
+        names.push(`林${name}: 8, ${num1}, ${num2}`);
+      }
+      alert(names.join("\n"));
+    }
+
+  </script>
+  <title>Get the name</title>
+</header>
+
+<body onload="onloaded();">
+  <div>
+    <h3>Good Choices</h3>
+    <div id="choices-btn-group">
+
+    </div>
+  </div>
+  <div>
+    <h3>Dictionary</h3>
+    <div id="dictionary"></div>
+  </div>
+  <div>
+    <h3>Candidates</h3>
+    <p>
+      <p>子硯 子清 凡清 彥存 奎安 羿諾 彥翰 奎澔 信安 湛然 俊潤 俊霖 子傑 照斌 夕嵐 川嵐 夕雲 頎斯 奐翰 省學 非零 楷硯 羿安 照涼 思睿 楷智 秋在 </p>
+      <p>靖然 靖雲 靖淳 靖皓 靖淵 靖翔</p>
+      <p>頌淵 頌雲 頌翔 頌斌 頌傑 </p>
+      <p>睦淵 睦雲 睦期 </p>
+    </p>
+  </div>
+  <div>
+    <h3>Reference</h3>
+    <a href="https://dict.mini.moe.edu.tw/SearchIndex/Stroke" target="_blank">教育部筆畫字典</a>
+    <a href="https://naming123.doitwell.tw" target="_blank">三財五行命理查詢</a>
+  </div>
+</body>
+
 </html>
