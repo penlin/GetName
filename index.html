@@ -58,21 +58,32 @@
       popup_suggestions(names);
     }
 
+    function random_pop_name(total=5) {
+      let names = [];
+      for (let i = 0; i < total; ++i) {
+        const option = randomSelect(choices, weights);
+        const num1 = option[0];
+        const num2 = option[1];
+        const name = random_name(num1, num2);
+        names.push([name, `8, ${num1}, ${num2}`]);
+      }
+      popup_suggestions(names);
+    }
+
     function onloaded() {
       getCandidates();
 
       let content = '';
-      let weights = [];
       let sum = 0;
       for (const choice of choices) {
         const [num1, num2] = choice;
         const comb = Object.keys(dictionary[num1]).length * Object.keys(dictionary[num2]).length;
         sum += comb;
-        weights.push(sum);
+        //weights.push(sum);
         content += `<button class="btn" onclick="pop_name(${num1}, ${num2});">8, ${num1}, ${num2} (${comb})</button>`;
       }
-      document.getElementById('choices-btn-group').innerHTML = content;
-      weights = weights.map(w => w/sum);
+      document.getElementById('choices-btn-group').innerHTML = `<button class="btn" onclick="random_pop_name(5);">Random (${sum})</buttton>${content}`;
+      //weights = weights.map(w => w/sum);
 
       content = '';
       for (const key in dictionary) {
@@ -82,17 +93,7 @@
         content += `${Object.keys(dictionary[key]).map(ch => `<span onclick="random_pop_name_has(${num},'${ch}')">${ch}</span>`).join(' ')}`;
       }
       document.getElementById('dictionary').innerHTML = content;
-
-      const max_num = 5;
-      let names = [];
-      for (let i = 0; i < max_num; ++i) {
-        const option = randomSelect(choices, weights);
-        const num1 = option[0];
-        const num2 = option[1];
-        const name = random_name(num1, num2);
-        names.push([name, `8, ${num1}, ${num2}`]);
-      }
-      popup_suggestions(names)
+      random_pop_name(5);
     }
 
     function popup_suggestions(names) {

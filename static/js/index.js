@@ -2,8 +2,6 @@
 
 const app_endpoint='https://script.google.com/macros/s/AKfycbxD_IWw5qmHxz9y0MwSb9qvMJ8yXOyy9DVVRiDx6Y7A_fdpaAhQr5G0TFVZGWZxgqpO/exec';
 
-let candidates = [];
-
 function getCandidates() {
     $.get(app_endpoint).done(resp => {
         if (typeof(resp) === 'object') {
