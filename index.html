@@ -1,9 +1,11 @@
 <!DOCTYPE HTML>
 <html>
 <header>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
   <script type="text/javascript" src="static/js/index.js"></script>
   <script type="text/javascript" src="static/js/dictionary.js"></script>
   <link rel="stylesheet" href="static/css/index.css">
+  <link rel="stylesheet" href="static/css/modal.css">
   <script>
     function getRandInt(max) {
       return Math.floor(Math.random() * max);
@@ -33,9 +35,9 @@
       let names = [];
       for (let i = 0; i < total; ++i) {
         const name = random_name(num1, num2);
-        names.push(`林${name}: 8, ${num1}, ${num2}`);
+        names.push([name, `8, ${num1}, ${num2}`]);
       }
-      alert(names.join("\n"));
+      popup_suggestions(names);
     }
 
     function random_pop_name_has(num, fix_char=undefined) {
@@ -51,12 +53,14 @@
         const [num1, num2] = posibles[getRandInt(posibles.length)];
         const char1 = (fix_char && num1 === num) ? fix_char : random_char(num1);
         const char2 = (fix_char && num2 === num) ? fix_char : random_char(num2);
-        names.push(`林${char1}${char2}: 8, ${num1}, ${num2}`);
+        names.push([`${char1}${char2}`, `8, ${num1}, ${num2}`]);
       }
-      alert(names.join("\n"));
+      popup_suggestions(names);
     }
 
     function onloaded() {
+      getCandidates();
+
       let content = '';
       let weights = [];
       let sum = 0;
@@ -86,9 +90,22 @@
         const num1 = option[0];
         const num2 = option[1];
         const name = random_name(num1, num2);
-        names.push(`林${name}: 8, ${num1}, ${num2}`);
+        names.push([name, `8, ${num1}, ${num2}`]);
       }
-      alert(names.join("\n"));
+      popup_suggestions(names)
+    }
+
+    function popup_suggestions(names) {
+      let content = '';
+      for (const [name, desc] of names) {
+        content += `<div class="item"><button class="add-btn" onclick="addCandidate('${name}');">Add</button><span class="name">林${name}</span>:<span class="name-description">${desc}</span></div>`;
+      }
+      document.getElementById('suggestions').innerHTML = content;
+      document.getElementById('names-pop-up').style.display = 'block';
+    }
+
+    function dismiss_popup() {
+      $('.modal').hide();
     }
 
   </script>
@@ -96,10 +113,17 @@
 </header>
 
 <body onload="onloaded();">
+  <div class="modal" id="names-pop-up">
+    <div class="modal-content">
+      <span class="close" onclick="dismiss_popup();">&times;</span>
+      <h4>Suggestions</h4>
+      <div id="suggestions">
+      </div>
+    </div>
+  </div>
   <div>
     <h3>Good Choices</h3>
     <div id="choices-btn-group">
-
     </div>
   </div>
   <div>
@@ -108,17 +132,13 @@
   </div>
   <div>
     <h3>Candidates</h3>
-    <p>
-      <p>子硯 子清 凡清 彥存 奎安 羿諾 彥翰 奎澔 信安 湛然 俊潤 俊霖 子傑 照斌 夕嵐 川嵐 夕雲 頎斯 奐翰 省學 非零 楷硯 羿安 照涼 思睿 楷智 秋在</p>
-      <p>靖然 靖雲 靖淳 靖皓 靖淵 靖翔</p>
-      <p>頌淵 頌雲 頌翔 頌斌 頌傑 </p>
-      <p>睦淵 睦雲 睦期 </p>
-    </p>
+    <p id="candidates"></p>
   </div>
   <div>
     <h3>Reference</h3>
     <p><a href="https://dict.mini.moe.edu.tw/SearchIndex/Stroke" target="_blank">教育部筆畫字典</a></p>
     <p><a href="https://naming123.doitwell.tw" target="_blank">三財五行命理查詢</a></p>
+    <p><a href="https://docs.google.com/spreadsheets/d/1tcDtLqy1bCyY5eC-hGic-VTcy-HvIdfA-Ld9E5xyQBY/edit#gid=0" target="_blank">Google sheet 資料庫</a></p>
   </div>
 </body>
 
