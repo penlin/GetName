@@ -37,7 +37,7 @@
         const name = random_name(num1, num2);
         names.push([name, `8, ${num1}, ${num2}`]);
       }
-      popup_suggestions(names);
+      popup_suggestions(names, `pop_name(${num1}, ${num2}, ${total});`);
     }
 
     function random_pop_name_has(num, fix_char=undefined) {
@@ -55,7 +55,11 @@
         const char2 = (fix_char && num2 === num) ? fix_char : random_char(num2);
         names.push([`${char1}${char2}`, `8, ${num1}, ${num2}`]);
       }
-      popup_suggestions(names);
+      if (fix_char) {
+        popup_suggestions(names, `random_pop_name_has(${num}, '${fix_char}');`);
+      } else {
+        popup_suggestions(names, `random_pop_name_has(${num});`);
+      }
     }
 
     function random_pop_name(total=5) {
@@ -67,7 +71,7 @@
         const name = random_name(num1, num2);
         names.push([name, `8, ${num1}, ${num2}`]);
       }
-      popup_suggestions(names);
+      popup_suggestions(names, `random_pop_name(5);`);
     }
 
     function onloaded() {
@@ -96,10 +100,13 @@
       random_pop_name(5);
     }
 
-    function popup_suggestions(names) {
+    function popup_suggestions(names, btn_callback='') {
       let content = '';
       for (const [name, desc] of names) {
         content += `<div class="item"><button class="add-btn" onclick="addCandidate('${name}');">Add</button><span class="name">林${name}</span>:<span class="name-description">${desc}</span></div>`;
+      }
+      if (btn_callback && btn_callback.length > 0) {
+        content += `<div class="item"><button class="next-btn" onclick="${btn_callback}">Next</button></div>`;
       }
       document.getElementById('suggestions').innerHTML = content;
       document.getElementById('names-pop-up').style.display = 'block';
