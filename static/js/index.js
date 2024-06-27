@@ -18,7 +18,7 @@ function getCandidates() {
             if (line_count % 16 === 0) {
                 content += '<p>';
             }
-            content += `${name} `;
+            content += `<a target="_blank" href="https://m.meimingteng.com/Naming/AJAXServices/ZhouYi.aspx?xingshi=林&mingzi=${name}">${name}</a> `;
             if (line_count % 16 === 15) {
                 content += '</p>';
             }
