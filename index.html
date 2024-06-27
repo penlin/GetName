@@ -98,6 +98,9 @@
       }
       document.getElementById('dictionary').innerHTML = content;
       random_pop_name(5);
+
+      document.getElementById('download-dict-link').setAttribute('href', "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(dictionary)));
+      document.getElementById('download-dict-link').parentElement.disabled = false;
     }
 
     function popup_suggestions(names, btn_callback='') {
@@ -137,6 +140,7 @@
   </div>
   <div>
     <h3>Dictionary</h3>
+    <button disabled><a id="download-dict-link" download="dictionary.json">Download</a></button>
     <div id="dictionary"></div>
   </div>
   <div>
