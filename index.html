@@ -103,7 +103,7 @@
     function popup_suggestions(names, btn_callback='') {
       let content = '';
       for (const [name, desc] of names) {
-        content += `<div class="item"><button class="add-btn" onclick="addCandidate('${name}');">Add</button><span class="name">林${name}</span>:<span class="name-description">${desc}</span></div>`;
+        content += `<div class="item"><button class="add-btn" onclick="addCandidate('${name}');">Add</button><span class="name">林${name}</span>:<span class="name-description">${desc}</span><a target="_blank" href="https://m.meimingteng.com/Naming/AJAXServices/ZhouYi.aspx?xingshi=林&mingzi=${name}"><span class="name-zhouyi">周易分析</span></a></div>`;
       }
       if (btn_callback && btn_callback.length > 0) {
         content += `<div class="item"><button class="next-btn" onclick="${btn_callback}">Next</button></div>`;
