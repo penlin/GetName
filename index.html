@@ -103,7 +103,8 @@
     function popup_suggestions(names, btn_callback='') {
       let content = '';
       for (const [name, desc] of names) {
-        content += `<div class="item"><button class="add-btn" onclick="addCandidate('${name}');">Add</button><span class="name">林${name}</span>:<span class="name-description">${desc}</span><a target="_blank" href="https://m.meimingteng.com/Naming/AJAXServices/ZhouYi.aspx?xingshi=林&mingzi=${name}"><span class="name-zhouyi">周易分析</span></a></div>`;
+        const added = (candidates && candidates.includes(name)) ? 'disabled' : '';
+        content += `<div class="item"><button class="add-btn" onclick="addCandidate('${name}');" ${added}>Add</button><span class="name">林${name}</span>:<span class="name-description">${desc}</span><a target="_blank" href="https://m.meimingteng.com/Naming/AJAXServices/ZhouYi.aspx?xingshi=林&mingzi=${name}"><span class="name-zhouyi">周易分析</span></a></div>`;
       }
       if (btn_callback && btn_callback.length > 0) {
         content += `<div class="item"><button class="next-btn" onclick="${btn_callback}">Next</button></div>`;
@@ -147,6 +148,8 @@
     <p><a href="https://dict.mini.moe.edu.tw/SearchIndex/Stroke" target="_blank">教育部筆畫字典</a></p>
     <p><a href="https://naming123.doitwell.tw" target="_blank">三財五行命理查詢</a></p>
     <p><a href="https://docs.google.com/spreadsheets/d/1tcDtLqy1bCyY5eC-hGic-VTcy-HvIdfA-Ld9E5xyQBY/edit#gid=0" target="_blank">Google sheet 資料庫</a></p>
+    <p><a href="http://www.ccamc.co/cjkv_kangxi.php">說文解字</a></p>
+    <p><a href="https://m.meimingteng.com/m/ceming.aspx">美名網-姓名測試</a></p>
   </div>
 </body>
 
